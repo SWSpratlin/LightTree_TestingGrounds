@@ -1,0 +1,7 @@
+{
+    "port": "/dev/cu.usbmodem1101",
+    "board": "arduino:avr:uno",
+    "programmer": "avrisp",
+    "sketch": "examples/strandtest_nodelay/strandtest_nodelay.ino",
+    "output": "../build"
+}
