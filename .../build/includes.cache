@@ -1,0 +1,42 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.5/cores/arduino"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.5/variants/standard"
+  },
+  {
+    "Sourcefile": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/sketch/sketch_mar26b.ino.cpp",
+    "Include": "Adafruit_NeoPixel.h",
+    "Includepath": "/Users/spenserspratlin/Documents/Arduino/libraries/Adafruit_NeoPixel-master"
+  },
+  {
+    "Sourcefile": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/sketch/sketch_mar26b.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/spenserspratlin/Documents/Arduino/libraries/Adafruit_NeoPixel-master/Adafruit_NeoPixel.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/spenserspratlin/Documents/Arduino/libraries/Adafruit_NeoPixel-master/esp.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/spenserspratlin/Documents/Arduino/libraries/Adafruit_NeoPixel-master/esp8266.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/spenserspratlin/Documents/Arduino/libraries/Adafruit_NeoPixel-master/kendyte_k210.c",
+    "Include": "",
+    "Includepath": null
+  }
+]

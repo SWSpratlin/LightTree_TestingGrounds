@@ -1,3 +1,5 @@
+#include <Arduino.h>
+#line 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
 // A basic everyday NeoPixel strip test program.
 
 // NEOPIXEL BEST PRACTICES for most reliable operation:
@@ -17,10 +19,10 @@
 
 // Which pin on the Arduino is connected to the NeoPixels?
 // On a Trinket or Gemma we suggest changing this to 1:
-#define LED_PIN 6
+#define LED_PIN 10
 
 // How many NeoPixels are attached to the Arduino?
-#define LED_COUNT 150
+#define LED_COUNT 140
 
 // Declare our NeoPixel strip object:
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
@@ -35,6 +37,19 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 // setup() function -- runs once at startup --------------------------------
 
+#line 38 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
+void setup();
+#line 54 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
+void loop();
+#line 77 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
+void colorWipe(uint32_t color, int wait);
+#line 90 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
+void theaterChase(uint32_t color, int wait);
+#line 109 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
+void rainbow(int wait);
+#line 131 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
+void theaterChaseRainbow(int wait);
+#line 38 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
 void setup()
 {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -46,7 +61,7 @@ void setup()
 
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
-  strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+  strip.setBrightness(10); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
 
 // loop() function -- runs repeatedly as long as board is on ---------------
@@ -152,3 +167,4 @@ void theaterChaseRainbow(int wait)
     }
   }
 }
+
