@@ -1,8 +1,4 @@
-#include <Adafruit_NeoPixel.h>
-#ifdef __AVR__
-#include <avr/power.h> // Required for 16 MHz Adafruit Trinket
-#endif
+#include <FastLED.h>
 
-// Pin and LED count for the one strip I have
-#define LED_PIN 10
-#define LED_COUNT 150
+#define NUM_LEDS 150
+#define DATA_PIN 10
