@@ -14,8 +14,9 @@
                 "-fno-threadsafe-statics",
                 "-Wno-error=narrowing"
             ],
-            "intelliSenseMode": "gcc-x64",
+            "intelliSenseMode": "${default}",
             "includePath": [
+                "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/lib/**",
                 "/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.5/cores/arduino",
                 "/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.5/variants/standard",
                 "/Users/spenserspratlin/Documents/Arduino/libraries/Adafruit_NeoPixel-master",
