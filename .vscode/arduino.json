@@ -1,6 +1,0 @@
-{
-    "port": "/dev/tty.usbmodem1101",
-    "board": "arduino:avr:uno",
-    "output": ".../build",
-    "sketch": "TestingGrounds/ArduinoSketches/sketch_mar26b/sketch_mar26b.ino"
-}
