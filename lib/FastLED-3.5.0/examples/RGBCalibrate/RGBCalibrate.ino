@@ -1,6 +1,5 @@
 #include "FastLED.h"
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // RGB Calibration code
@@ -23,18 +22,19 @@
 //
 //////////////////////////////////////////////////
 
-#define NUM_LEDS 7
+#define NUM_LEDS 150
 
 // For led chips like WS2812, which have a data line, ground, and power, you just
 // need to define DATA_PIN.  For led chipsets that are SPI based (four wires - data, clock,
 // ground, and power), like the LPD8806 define both DATA_PIN and CLOCK_PIN
 // Clock pin only needed for SPI based chipsets when not using hardware SPI
-#define DATA_PIN 3
-#define CLOCK_PIN 13
+#define DATA_PIN 10
+// #define CLOCK_PIN 13
 
 CRGB leds[NUM_LEDS];
 
-void setup() {
+void setup()
+{
     // sanity check delay - allows reprogramming if accidently blowing power w/leds
     delay(2000);
 
@@ -52,7 +52,7 @@ void setup() {
     // FastLED.addLeds<UCS2903, DATA_PIN, RGB>(leds, NUM_LEDS);
     // FastLED.addLeds<WS2812, DATA_PIN, RGB>(leds, NUM_LEDS);  // GRB ordering is typical
     // FastLED.addLeds<WS2852, DATA_PIN, RGB>(leds, NUM_LEDS);  // GRB ordering is typical
-    // FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);  // GRB ordering is typical
+    FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS); // GRB ordering is typical
     // FastLED.addLeds<GS1903, DATA_PIN, RGB>(leds, NUM_LEDS);
     // FastLED.addLeds<SK6812, DATA_PIN, RGB>(leds, NUM_LEDS);  // GRB ordering is typical
     // FastLED.addLeds<SK6822, DATA_PIN, RGB>(leds, NUM_LEDS);
@@ -82,14 +82,15 @@ void setup() {
     // FastLED.setBrightness(CRGB(255,255,255));
 }
 
-void loop() {
-    leds[0] = CRGB(255,0,0);
-    leds[1] = CRGB(0,255,0);
-    leds[2] = CRGB(0,255,0);
-    leds[3] = CRGB(0,0,255);
-    leds[4] = CRGB(0,0,255);
-    leds[5] = CRGB(0,0,255);
-    leds[6] = CRGB(0,0,0);
+void loop()
+{
+    leds[0] = CRGB(255, 0, 0);
+    leds[1] = CRGB(0, 255, 0);
+    leds[2] = CRGB(0, 255, 0);
+    leds[3] = CRGB(0, 0, 255);
+    leds[4] = CRGB(0, 0, 255);
+    leds[5] = CRGB(0, 0, 255);
+    leds[6] = CRGB(0, 0, 0);
     FastLED.show();
     delay(1000);
 }
