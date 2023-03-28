@@ -18,7 +18,7 @@ void loop()
     {
         leds[i] = CRGB::Red;
         delay(50);
-        // leds[(i - 5)] = CRGB::Black;
+        FastLED.setBrightness(0);
         FastLED.show();
     }
 
