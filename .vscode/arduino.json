@@ -1,5 +1,6 @@
 {
     "port": "/dev/tty.usbmodem1101",
     "board": "arduino:avr:uno",
-    "sketch": "lib/FastLED-3.5.0/examples/TwinkleFox/TwinkleFox.ino"
+    "sketch": "TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino",
+    "output": ".../build"
 }
