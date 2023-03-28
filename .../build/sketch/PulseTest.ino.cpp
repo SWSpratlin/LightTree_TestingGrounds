@@ -1,3 +1,5 @@
+#include <Arduino.h>
+#line 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino"
 #include <FastLED.h>
 
 #define NUM_LEDS 150
@@ -10,6 +12,11 @@
 
 CRGB leds[NUM_LEDS];
 
+#line 13 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino"
+void setup();
+#line 22 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino"
+void loop();
+#line 13 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino"
 void setup()
 {
     delay(3000);
@@ -25,7 +32,7 @@ void loop()
     {
         leds[i] = CRGB::Red;
         delay(50);
-        FastLED.setBrightness(0);
+        // leds[(i - 5)] = CRGB::Black;
         FastLED.show();
     }
 
