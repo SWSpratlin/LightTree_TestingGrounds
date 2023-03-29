@@ -80,7 +80,7 @@ void pulse2(int u, int l)
 
     FastLED.show();
     fadeall(p);
-    delay((rand() % 10));
+    delay(0);
 }
 
 void pulse(int u, int l)
@@ -94,7 +94,7 @@ void pulse(int u, int l)
     leds[y++] = CHSV(150, 255, 255);
     FastLED.show();
     fadeall(p);
-    delay((rand() % 10));
+    delay(0);
 }
 
 void fadeall(int p)
