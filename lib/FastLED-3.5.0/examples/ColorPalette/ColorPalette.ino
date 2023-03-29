@@ -1,9 +1,9 @@
 #include <FastLED.h>
 
-#define LED_PIN 5
-#define NUM_LEDS 50
+#define LED_PIN 8
+#define NUM_LEDS 150
 #define BRIGHTNESS 64
-#define LED_TYPE WS2811
+#define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
 
@@ -44,10 +44,10 @@ void setup()
 
 void loop()
 {
-    ChangePalettePeriodically();
+    SetupBlackAndWhiteStripedPalette();
 
     static uint8_t startIndex = 0;
-    startIndex = startIndex + 1; /* motion speed */
+    startIndex = startIndex - 1; /* motion speed */
 
     FillLEDsFromPaletteColors(startIndex);
 
@@ -158,10 +158,9 @@ void SetupBlackAndWhiteStripedPalette()
     // 'black out' all 16 palette entries...
     fill_solid(currentPalette, 16, CRGB::Black);
     // and set every fourth one to white.
-    currentPalette[0] = CRGB::White;
-    currentPalette[4] = CRGB::White;
-    currentPalette[8] = CRGB::White;
-    currentPalette[12] = CRGB::White;
+    currentPalette[(rand() % 4)] = CRGB::White;
+    currentPalette[((rand() % 4) + 4)] = CRGB::White;
+    currentPalette[((rand() % 4) + 8)] = CRGB::White;
 }
 
 // This function sets up a palette of purple and green stripes.
