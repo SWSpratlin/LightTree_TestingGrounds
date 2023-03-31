@@ -1,15 +1,22 @@
-# 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino"
-# 2 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino" 2
-# 3 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino" 2
-# 11 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino"
+# 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/ArrayPulse/ArrayPulse.ino"
+# 2 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/ArrayPulse/ArrayPulse.ino" 2
+# 3 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/ArrayPulse/ArrayPulse.ino" 2
+# 11 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/ArrayPulse/ArrayPulse.ino"
 
-# 11 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino"
+# 11 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/ArrayPulse/ArrayPulse.ino"
 int pulseDistance;
 
 CRGB leds[150];
 
-int x;
-int y;
+int x = 0;
+int y = 0;
+int a = 0;
+int b = 0;
+int c = 0;
+int d = 0;
+int e = 0;
+
+int letters[7] = {a, b, c, d, e, x, y};
 
 const int trigPin = 2;
 const int echoPin = 3;
@@ -34,75 +41,33 @@ void loop()
 {
     pulseDistance = (measureDist() / 2);
 
-    pulse(255, 225);
-    pulse2(255, 225);
+    pulse(letters[rand() % 7]);
 
-    // if (x > pulseDistance)
-    // {
-
-    // }
-
-    if (x >= 150)
+    for (int i = 0; i < sizeof(letters); i++)
     {
-        x = 0;
-    }
-
-    if (y >= 150)
-    {
-        y = 0 - pulseDistance;
+        if (letters[i] >= 150)
+        {
+            letters[i] = 0 - (rand() % (pulseDistance * 2));
+        }
     }
 }
 
-void pulse2(int u, int l)
+void pulse(int x)
 {
-    int p = (rand() % (u - l + 1) + l);
-
     if (x < 150)
     {
         leds[x++] = CHSV(255, 125, 255);
     }
-    // else if (x >= NUM_LEDS && x <= (NUM_LEDS + pulseDistance))
-    // {
-    //     x++;
-    // }
-    // else if (x > NUM_LEDS + pulseDistance)
-    // {
-    //     x = 0;
-    // }
 
     FastLED.show();
-    fadeall(p);
-    delay(0);
+    fadeall();
 }
 
-void pulse(int u, int l)
-{
-    int p = (rand() % (u - l + 1) + l);
-
-    // if (y > NUM_LEDS + pulseDistance)
-    // {
-    //     y = 0;
-    // }
-
-    if (y < 0)
-    {
-        y++;
-    }
-    else if (y < 150 && y >= 0)
-    {
-        leds[y++] = CHSV(150, 255, 255);
-    }
-
-    FastLED.show();
-    fadeall(p);
-    delay(0);
-}
-
-void fadeall(int p)
+void fadeall()
 {
     for (int i = 0; i < 150; i++)
     {
-        leds[i].nscale8(p);
+        leds[i].nscale8(225);
     }
 }
 

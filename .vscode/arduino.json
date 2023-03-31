@@ -1,6 +1,6 @@
 {
     "port": "/dev/tty.usbmodem1101",
     "board": "arduino:avr:uno",
-    "sketch": "TestingGrounds/ArduinoSketches/PulseTest/PulseTest.ino",
+    "sketch": "TestingGrounds/ArduinoSketches/ArrayPulse/ArrayPulse.ino",
     "output": ".../build"
 }
