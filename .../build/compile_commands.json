@@ -55,37 +55,6 @@
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
    "-I/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src",
-   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/platforms/esp/32/clockless_rmt_esp32.cpp",
-   "-o",
-   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/platforms/esp/32/clockless_rmt_esp32.cpp.o"
-  ],
-  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/platforms/esp/32/clockless_rmt_esp32.cpp"
- },
- {
-  "directory": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds",
-  "arguments": [
-   "/Users/spenserspratlin/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_UNO",
-   "-DARDUINO_ARCH_AVR",
-   "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
-   "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
-   "-I/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src",
    "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/platforms.cpp",
    "-o",
    "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/platforms.cpp.o"
@@ -179,11 +148,11 @@
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
    "-I/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src",
-   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/colorutils.cpp",
+   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/bitswap.cpp",
    "-o",
-   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/colorutils.cpp.o"
+   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/bitswap.cpp.o"
   ],
-  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/colorutils.cpp"
+  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/bitswap.cpp"
  },
  {
   "directory": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds",
@@ -241,11 +210,42 @@
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
    "-I/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src",
-   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/lib8tion.cpp",
+   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/platforms/esp/32/clockless_rmt_esp32.cpp",
    "-o",
-   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/lib8tion.cpp.o"
+   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/platforms/esp/32/clockless_rmt_esp32.cpp.o"
   ],
-  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/lib8tion.cpp"
+  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/platforms/esp/32/clockless_rmt_esp32.cpp"
+ },
+ {
+  "directory": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds",
+  "arguments": [
+   "/Users/spenserspratlin/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_UNO",
+   "-DARDUINO_ARCH_AVR",
+   "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
+   "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
+   "-I/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src",
+   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/colorutils.cpp",
+   "-o",
+   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/colorutils.cpp.o"
+  ],
+  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/colorutils.cpp"
  },
  {
   "directory": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds",
@@ -303,11 +303,11 @@
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
    "-I/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src",
-   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/wiring.cpp",
+   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/power_mgt.cpp",
    "-o",
-   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/wiring.cpp.o"
+   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/power_mgt.cpp.o"
   ],
-  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/wiring.cpp"
+  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/power_mgt.cpp"
  },
  {
   "directory": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds",
@@ -334,10 +334,41 @@
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
    "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
    "-I/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src",
-   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/bitswap.cpp",
+   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/lib8tion.cpp",
    "-o",
-   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/bitswap.cpp.o"
+   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/lib8tion.cpp.o"
   ],
-  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/bitswap.cpp"
+  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/lib8tion.cpp"
+ },
+ {
+  "directory": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds",
+  "arguments": [
+   "/Users/spenserspratlin/Library/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_UNO",
+   "-DARDUINO_ARCH_AVR",
+   "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
+   "-I/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
+   "-I/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src",
+   "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/wiring.cpp",
+   "-o",
+   "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/libraries/FastLED/wiring.cpp.o"
+  ],
+  "file": "/Users/spenserspratlin/Documents/Arduino/libraries/FastLED/src/wiring.cpp"
  }
 ]
