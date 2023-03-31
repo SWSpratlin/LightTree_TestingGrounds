@@ -33,13 +33,24 @@ void setup()
 void loop()
 {
     pulseDistance = (measureDist() / 2);
-    measureDist();
+
+    pulse(255, 225);
     pulse2(255, 225);
-    if (x > pulseDistance)
+
+    // if (x > pulseDistance)
+    // {
+
+    // }
+
+    if (x >= 150)
     {
-        pulse(255, 225);
+        x = 0;
     }
-    delay(1);
+
+    if (y >= 150)
+    {
+        y = 0 - pulseDistance;
+    }
 }
 
 void pulse2(int u, int l)
@@ -50,14 +61,14 @@ void pulse2(int u, int l)
     {
         leds[x++] = CHSV(255, 125, 255);
     }
-    else if (x >= 150 && x <= (150 + pulseDistance))
-    {
-        x++;
-    }
-    else if (x > 150 + pulseDistance)
-    {
-        x = 0;
-    }
+    // else if (x >= NUM_LEDS && x <= (NUM_LEDS + pulseDistance))
+    // {
+    //     x++;
+    // }
+    // else if (x > NUM_LEDS + pulseDistance)
+    // {
+    //     x = 0;
+    // }
 
     FastLED.show();
     fadeall(p);
@@ -68,11 +79,20 @@ void pulse(int u, int l)
 {
     int p = (rand() % (u - l + 1) + l);
 
-    if (y > 150 + pulseDistance)
+    // if (y > NUM_LEDS + pulseDistance)
+    // {
+    //     y = 0;
+    // }
+
+    if (y < 0)
     {
-        y = 0;
+        y++;
     }
-    leds[y++] = CHSV(150, 255, 255);
+    else if (y < 150 && y >= 0)
+    {
+        leds[y++] = CHSV(150, 255, 255);
+    }
+
     FastLED.show();
     fadeall(p);
     delay(0);
