@@ -28,6 +28,8 @@ const int echoPin = 3;
 long duration;
 int distance;
 
+bool spaced;
+
 void setup()
 {
     pinMode(trigPin, OUTPUT);
@@ -39,19 +41,22 @@ void setup()
     FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
     FastLED.setBrightness(BRIGHTNESS);
     FastLED.show();
+    spaced = false;
 }
 
 void loop()
 {
     pulseDistance = (measureDist() / 2);
 
-    pulse(255, 225);
-    pulse2(255, 225);
-    pulse3(255, 225);
-    pulse4(255, 225);
-    pulse5(255, 225);
-    pulse6(255, 225);
-    pulse7(255, 225);
+    pulse(255, 230);
+    pulse2(255, 230);
+    pulse3(255, 230);
+    pulse4(255, 230);
+    pulse5(255, 230);
+    pulse6(255, 230);
+    pulse7(255, 230);
+
+    Serial.println(pulseDistance);
 
     if (x >= NUM_LEDS)
     {
@@ -89,7 +94,8 @@ void pulse2(int u, int l)
 
     if (x < NUM_LEDS)
     {
-        leds[x++] = CHSV(255, 125, 255);
+        x += pulseSpeed();
+        leds[x] = CHSV(255, 125, 255);
     }
 
     FastLED.show();
@@ -106,7 +112,8 @@ void pulse(int u, int l)
     }
     else if (y < NUM_LEDS && y >= 0)
     {
-        leds[y++] = CHSV(150, 255, 255);
+        y += pulseSpeed();
+        leds[y] = CHSV(150, 255, 255);
     }
 
     FastLED.show();
@@ -123,7 +130,8 @@ void pulse3(int u, int l)
     }
     else if (a < NUM_LEDS && a >= 0)
     {
-        leds[a++] = CHSV(76, 255, 255);
+        a += pulseSpeed();
+        leds[a] = CHSV(76, 255, 255);
     }
 
     FastLED.show();
@@ -140,7 +148,8 @@ void pulse4(int u, int l)
     }
     else if (b < NUM_LEDS && b >= 0)
     {
-        leds[b++] = CHSV(106, 200, 150);
+        b += pulseSpeed();
+        leds[b] = CHSV(106, 200, 150);
     }
 
     FastLED.show();
@@ -157,7 +166,8 @@ void pulse5(int u, int l)
     }
     else if (c < NUM_LEDS && c >= 0)
     {
-        leds[c++] = CHSV(255, 255, 255);
+        c += pulseSpeed();
+        leds[c] = CHSV(255, 255, 255);
     }
 
     FastLED.show();
@@ -174,7 +184,8 @@ void pulse6(int u, int l)
     }
     else if (d < NUM_LEDS && d >= 0)
     {
-        leds[d++] = CHSV(40, 200, 150);
+        d += pulseSpeed();
+        leds[d] = CHSV(40, 200, 150);
     }
 
     FastLED.show();
@@ -191,6 +202,7 @@ void pulse7(int u, int l)
     }
     else if (e < NUM_LEDS && e >= 0)
     {
+        e += pulseSpeed();
         leds[e++] = CHSV(10, 200, 150);
     }
 
@@ -203,6 +215,22 @@ void fadeall(int p)
     for (int i = 0; i < NUM_LEDS; i++)
     {
         leds[i].nscale8(p);
+    }
+}
+
+int pulseSpeed()
+{
+    if (40 <= pulseDistance <= 55)
+    {
+        return 1;
+    }
+    if (20 <= pulseDistance <= 39)
+    {
+        return 2;
+    }
+    if (0 <= pulseDistance <= 19)
+    {
+        return 3;
     }
 }
 

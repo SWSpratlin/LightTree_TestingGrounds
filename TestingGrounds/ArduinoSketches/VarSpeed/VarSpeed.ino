@@ -1,13 +1,17 @@
-# 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/VarSpeed/VarSpeed.ino"
-# 2 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/VarSpeed/VarSpeed.ino" 2
-# 3 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/VarSpeed/VarSpeed.ino" 2
-# 11 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/VarSpeed/VarSpeed.ino"
+#include <FastLED.h>
+#include <time.h>
 
-# 11 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ArduinoSketches/VarSpeed/VarSpeed.ino"
+#define NUM_LEDS 150
+#define DATA_PIN 8
+#define BRIGHTNESS 100
+#define COLOR_ORDER GRB
+#define LED_TYPE WS2812B
+#define VOLTS 5
+#define MAX_MA 3000
 int pulseDistance;
 int speed;
 
-CRGB leds[150];
+CRGB leds[NUM_LEDS];
 
 int x;
 int y;
@@ -22,14 +26,14 @@ bool spaced;
 
 void setup()
 {
-    pinMode(trigPin, 0x1);
-    pinMode(echoPin, 0x0);
+    pinMode(trigPin, OUTPUT);
+    pinMode(echoPin, INPUT);
     Serial.begin(9600);
     srand(time(0));
     delay(3000);
-    FastLED.setMaxPowerInVoltsAndMilliamps(5, 3000);
-    FastLED.addLeds<WS2812B, 8, GRB>(leds, 150);
-    FastLED.setBrightness(100);
+    FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
+    FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
+    FastLED.setBrightness(BRIGHTNESS);
     FastLED.show();
     spaced = false;
 }
@@ -43,14 +47,14 @@ void loop()
 
     Serial.println(pulseDistance);
 
-    if (x > 150)
+    if (x > NUM_LEDS)
     {
         x = 0;
     }
 
     delay(1);
 
-    if (y >= 150)
+    if (y >= NUM_LEDS)
     {
         y = 0 - pulseDistance;
     }
@@ -63,17 +67,13 @@ void pulse(int u, int l)
     {
         x += pulseSpeed();
     }
-    else if (x <= 150 && x >= 0)
+    else if (x <= NUM_LEDS && x >= 0)
     {
         x += pulseSpeed();
         leds[x] = CHSV(150, 255, 255);
-        if ((x + 1) <= 150)
+        if ((x + 1) <= NUM_LEDS)
         {
             leds[x + 1] = CHSV(150, 255, 255);
-        }
-        else
-        {
-            x = 0;
         }
     }
 
@@ -89,12 +89,12 @@ void pulse2(int u, int l)
     {
         y += pulseSpeed();
     }
-    else if (y < 150 && y >= 0)
+    else if (y < NUM_LEDS && y >= 0)
     {
         y += (pulseSpeed() + 1);
         leds[y] = CHSV(255, 255, 255);
 
-        if ((y + 2) <= 150)
+        if ((y + 2) <= NUM_LEDS)
         {
             leds[y + 1] = CHSV(255, 255, 255);
             leds[y + 2] = CHSV(255, 255, 255);
@@ -107,7 +107,7 @@ void pulse2(int u, int l)
 
 void fadeall(int p)
 {
-    for (int i = 0; i < 150; i++)
+    for (int i = 0; i < NUM_LEDS; i++)
     {
         leds[i].nscale8(p);
     }
@@ -131,13 +131,13 @@ int pulseSpeed()
 
 int measureDist()
 {
-    digitalWrite(trigPin, 0x0);
+    digitalWrite(trigPin, LOW);
     delayMicroseconds(2);
-    digitalWrite(trigPin, 0x1);
+    digitalWrite(trigPin, HIGH);
     delayMicroseconds(10);
-    digitalWrite(trigPin, 0x0);
+    digitalWrite(trigPin, LOW);
 
-    duration = pulseIn(echoPin, 0x1);
+    duration = pulseIn(echoPin, HIGH);
 
     distance = duration * 0.034 / 2;
 
