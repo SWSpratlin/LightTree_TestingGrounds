@@ -236,13 +236,17 @@ void measureDist(int &distance)
 
 int colorChange(int &color)
 {
+    // Check if there's something within the area of the sensor
     if (delayDistance < THRESHOLD)
     {
+        // Resetr the color variable to 0 when it hits 256 (loop)
         if (color > 255)
         {
             color = 0;
         }
+        // increment the color if there's something on the sensor.
         color++;
     }
+    // return the updated value
     return color;
 }
