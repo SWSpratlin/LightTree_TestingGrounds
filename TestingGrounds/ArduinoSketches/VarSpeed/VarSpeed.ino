@@ -9,7 +9,6 @@
 #define VOLTS 5
 #define MAX_MA 3000
 int pulseDistance;
-int speed;
 
 CRGB leds[NUM_LEDS];
 
@@ -70,7 +69,7 @@ void pulse(int u, int l)
     else if (x <= NUM_LEDS && x >= 0)
     {
         x += pulseSpeed();
-        leds[x] = CHSV(150, 255, 255);
+        leds[x] = CRGB::Blue;
         if ((x + 1) <= NUM_LEDS)
         {
             leds[x + 1] = CHSV(150, 255, 255);
@@ -87,11 +86,11 @@ void pulse2(int u, int l)
 
     if (y < 0)
     {
-        y += pulseSpeed();
+        y++;
     }
-    else if (y < NUM_LEDS && y >= 0)
+    else if (y <= NUM_LEDS && y >= 0)
     {
-        y += (pulseSpeed() + 1);
+        y += (pulseSpeed() + 2);
         leds[y] = CHSV(255, 255, 255);
 
         if ((y + 2) <= NUM_LEDS)

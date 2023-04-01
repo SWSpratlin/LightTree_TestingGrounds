@@ -1,6 +1,6 @@
 {
-    "port": "/dev/tty.usbmodem1101",
+    "port": "/dev/tty.usbmodem141101",
     "board": "arduino:avr:uno",
-    "sketch": "TestingGrounds/ArduinoSketches/VarSpeed/VarSpeed.ino",
+    "sketch": "TestingGrounds/VarTest2/VarTest2.ino",
     "output": ".../build"
 }

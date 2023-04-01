@@ -1,21 +1,20 @@
-# 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
-# 2 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 2
+#include <FastLED.h>
 // this is imporant for the code to run
 
-
+#define NUM_LEDS 150
 // #define NUM_SECOND 150
-
+#define DATA_PIN 8
 // #define DATA_TWO 10
-
-
+#define BRIGHTNESS 100
+#define COLOR_ORDER GRB
 // #define COLOR_ORDER_SECOND RGB
-
+#define LED_TYPE WS2812B
 // #define LED_TYPE_SECOND WS2811
-
-
+#define VOLTS 5
+#define MAX_MA 3000
 
 // declare array
-CRGB leds[150];
+CRGB leds[NUM_LEDS];
 // CRGB secondLeds[NUM_SECOND];
 
 // Trigger Pin for US Sensor
@@ -40,21 +39,21 @@ int headYellow = -100;
 void setup()
 {
     // WE DO NEED THESE
-    pinMode(TRIGGER_PIN, 0x1);
-    pinMode(ECHO_PIN, 0x0);
+    pinMode(TRIGGER_PIN, OUTPUT);
+    pinMode(ECHO_PIN, INPUT);
 
     // Begin serial communication BAUD 9600
     Serial.begin(9600);
 
     // Setup LED strip power
-    FastLED.setMaxPowerInVoltsAndMilliamps(5, 3000);
+    FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
 
     // add specific LEDs to array
-    FastLED.addLeds<WS2812B, 8, GRB>(leds, 150);
+    FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
     // FastLED.addLeds<LED_TYPE_SECOND, DATA_TWO, COLOR_ORDER_SECOND>(secondLeds, NUM_SECOND);
 
     // set LED brightness
-    FastLED.setBrightness(100);
+    FastLED.setBrightness(BRIGHTNESS);
 
     // show LEDs
     FastLED.show();
@@ -69,16 +68,16 @@ void loop()
     measureDist(delayDistance);
 
     // call first red pulse
-    pulse(leds, 150, CRGB::Red, headRed, 0);
+    pulse(leds, NUM_LEDS, CRGB::Red, headRed, 0);
 
     // call the first blue pulse
-    pulse(leds, 150, CRGB::Blue, headBlue, 10);
+    pulse(leds, NUM_LEDS, CRGB::Blue, headBlue, 10);
 
     // call the first yellow pulse
-    pulse(leds, 150, CRGB::Orange, headYellow, 20);
+    pulse(leds, NUM_LEDS, CRGB::Orange, headYellow, 20);
 
     // call the first green pulse
-    pulse(leds, 150, CRGB::Green, headGreen, 30);
+    pulse(leds, NUM_LEDS, CRGB::Green, headGreen, 30);
 
     // call the second red pulse
     // pulse(secondLeds, NUM_SECOND, CRGB::Red, secondHeadRed, 20);
@@ -186,15 +185,15 @@ void backFill(CRGB strip[], int skipDistance, int head, CRGB color)
 // Distance measurement
 void measureDist(int &distance)
 {
-    digitalWrite(TRIGGER_PIN, 0x0);
+    digitalWrite(TRIGGER_PIN, LOW);
     delayMicroseconds(2);
-    digitalWrite(TRIGGER_PIN, 0x1);
+    digitalWrite(TRIGGER_PIN, HIGH);
     delayMicroseconds(10);
-    digitalWrite(TRIGGER_PIN, 0x0);
+    digitalWrite(TRIGGER_PIN, LOW);
 
     // Equation for distance calculation condensed into "return"
     // divided by 4 to eliminate "pulseDistance"
-    long readerValue = pulseIn(ECHO_PIN, 0x1);
+    long readerValue = pulseIn(ECHO_PIN, HIGH);
     // Serial.println(readerValue);
     if (readerValue < 9)
     {
