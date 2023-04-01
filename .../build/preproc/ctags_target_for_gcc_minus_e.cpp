@@ -14,6 +14,9 @@
 
 
 
+// Threshold for the distance in which the color change triggers
+
+
 // declare array
 CRGB leds[150];
 // CRGB secondLeds[NUM_SECOND];
@@ -27,6 +30,7 @@ const int ECHO_PIN = 3;
 // diatance variable
 int delayDistance = 1;
 
+// Head variables
 int headBlue = -10;
 int headRed = -30;
 int headGreen = -50;
@@ -36,6 +40,12 @@ int headYellow = -100;
 // int secondHeadRed = -35;
 // int secondHeadGreen = -50;
 // int secondHeadOrange = -100;
+
+// Color variables (need to be global for them to change consistently)
+int pulseColorRed = 250;
+int pulseColorBlue = 150;
+int pulseColorYellow = 30;
+int pulseColorGreen = 100;
 
 void setup()
 {
@@ -69,16 +79,18 @@ void loop()
     measureDist(delayDistance);
 
     // call first red pulse
-    pulse(leds, 150, CRGB::Red, headRed, 0);
+    pulse(leds, 150, pulseColorRed, headRed, 0);
 
     // call the first blue pulse
-    pulse(leds, 150, CRGB::Blue, headBlue, 10);
+    pulse(leds, 150, pulseColorBlue, headBlue, 10);
 
     // call the first yellow pulse
-    pulse(leds, 150, CRGB::Orange, headYellow, 20);
+    pulse(leds, 150, pulseColorYellow, headYellow, 20);
 
     // call the first green pulse
-    pulse(leds, 150, CRGB::Green, headGreen, 30);
+    pulse(leds, 150, pulseColorGreen, headGreen, 30);
+
+    Serial.println(pulseColorRed);
 
     // call the second red pulse
     // pulse(secondLeds, NUM_SECOND, CRGB::Red, secondHeadRed, 20);
@@ -98,7 +110,7 @@ void loop()
  * NUmber of LEDs in the strip, the color of the pulse, the head variable you want,
  * and the gap between pulses
  */
-void pulse(CRGB strip[], const int &ledNumber, CRGB color, int &head, int gap)
+void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int gap)
 {
 
     // Get the head skip
@@ -120,7 +132,7 @@ void pulse(CRGB strip[], const int &ledNumber, CRGB color, int &head, int gap)
     if (head >= 0)
     {
         // color the LEDs
-        strip[head] = color;
+        strip[head] = CHSV(colorChange(color), 255, 255);
 
         // backfill for skipped LEDs
         backFill(strip, skip, head, color);
@@ -169,7 +181,7 @@ int headSkip(int &distance)
     }
 }
 
-void backFill(CRGB strip[], int skipDistance, int head, CRGB color)
+void backFill(CRGB strip[], int skipDistance, int head, int color)
 {
 
     for (int i = skipDistance; i > 0; i--)
@@ -178,7 +190,7 @@ void backFill(CRGB strip[], int skipDistance, int head, CRGB color)
 
         if (behind >= 0)
         {
-            strip[behind] = color;
+            strip[behind] = CHSV(colorChange(color), 255, 255);
         }
     }
 }
@@ -204,6 +216,15 @@ void measureDist(int &distance)
     distance = readerValue * 0.034 / 2;
 }
 
-void colorChange(CRGB strip[])
+int colorChange(int &color)
 {
+    if (delayDistance < 140)
+    {
+        if (color > 255)
+        {
+            color = 0;
+        }
+        color++;
+    }
+    return color;
 }
