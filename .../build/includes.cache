@@ -7,7 +7,7 @@
   {
     "Sourcefile": null,
     "Include": "",
-    "Includepath": "/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard"
+    "Includepath": "/Users/spenserspratlin/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/mega"
   },
   {
     "Sourcefile": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/sketch/VarTest2.ino.cpp",
