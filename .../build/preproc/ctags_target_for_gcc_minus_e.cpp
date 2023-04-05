@@ -3,9 +3,9 @@
 // this is imporant for the code to run
 
 
-// #define NUM_SECOND 150
 
-// #define DATA_TWO 10
+
+
 
 
 // #define COLOR_ORDER_SECOND RGB
@@ -19,13 +19,10 @@
 
 // declare array
 CRGB leds[150];
-// CRGB secondLeds[NUM_SECOND];
-
-// Trigger Pin for US Sensor
-const int TRIGGER_PIN = 2;
+CRGB secondLeds[300];
 
 // Read/echo pin for US Sensor
-const int ECHO_PIN = 3;
+const int ECHO_PIN = 2;
 
 // diatance variable
 int delayDistance = 1;
@@ -36,10 +33,10 @@ int headRed = -30;
 int headGreen = -50;
 int headYellow = -100;
 
-// int secondHeadBlue = 0;
-// int secondHeadRed = -35;
-// int secondHeadGreen = -50;
-// int secondHeadOrange = -100;
+int secondHeadBlue = 0;
+int secondHeadRed = -35;
+int secondHeadGreen = -50;
+int secondHeadOrange = -100;
 
 // Color variables (need to be global for them to change consistently)
 int pulseColorRed = 250;
@@ -50,18 +47,15 @@ int pulseColorGreen = 100;
 void setup()
 {
     // WE DO NEED THESE
-    pinMode(TRIGGER_PIN, 0x1);
+    pinMode(3, 0x1);
     pinMode(ECHO_PIN, 0x0);
 
-    // Begin serial communication BAUD 9600
-    Serial.begin(9600);
-
     // Setup LED strip power
-    FastLED.setMaxPowerInVoltsAndMilliamps(5, 3000);
+    // FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
 
     // add specific LEDs to array
     FastLED.addLeds<WS2812B, 8, GRB>(leds, 150);
-    // FastLED.addLeds<LED_TYPE_SECOND, DATA_TWO, COLOR_ORDER_SECOND>(secondLeds, NUM_SECOND);
+    FastLED.addLeds<WS2812B, 10, GRB>(secondLeds, 300);
 
     // set LED brightness
     FastLED.setBrightness(100);
@@ -69,8 +63,8 @@ void setup()
     // show LEDs
     FastLED.show();
 
-    // starup delay 1 second
-    delay(1000);
+    // starup delay .5 second
+    delay(500);
 }
 
 void loop()
@@ -90,19 +84,21 @@ void loop()
     // call the first green pulse
     pulse(leds, 150, pulseColorGreen, headGreen, 30);
 
-    Serial.println(pulseColorRed);
-
     // call the second red pulse
-    // pulse(secondLeds, NUM_SECOND, CRGB::Red, secondHeadRed, 20);
+    pulse(secondLeds, 300, pulseColorRed, secondHeadRed, 20);
 
     // call the second blue pulse
-    // pulse(secondLeds, NUM_SECOND, CRGB::Blue, secondHeadBlue, 30);
+    pulse(secondLeds, 300, pulseColorBlue, secondHeadBlue, 30);
 
     // Call the second string Orange pulse
-    // pulse(secondLeds, NUM_SECOND, CRGB::Orange, secondHeadOrange, 0);
+    pulse(secondLeds, 300, pulseColorYellow, secondHeadOrange, 0);
 
     // call second string green pulse
-    // pulse(secondLeds, NUM_SECOND, CRGB::Green, secondHeadGreen, 10);
+    pulse(secondLeds, 300, pulseColorGreen, secondHeadGreen, 10);
+
+    // Update the changes. Putting this in the Pulse function makes things go much slower
+    // Updating the pixels THEN showing the changes is much faster.
+    FastLED.show();
 }
 
 /**
@@ -138,11 +134,9 @@ void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int gap)
         backFill(strip, skip, head, color);
     }
 
-    // Show updated LEDs
-    FastLED.show();
-
     // Fade for size
     tailFade(strip, ledNumber, 250);
+    delay(1);
 }
 
 /**
@@ -181,6 +175,10 @@ int headSkip(int &distance)
     }
 }
 
+/**
+ * Fill in behind the Head when it skips (speeds up) an LED
+ * Takes in the distance which is updated every loop
+ */
 void backFill(CRGB strip[], int skipDistance, int head, int color)
 {
 
@@ -195,14 +193,44 @@ void backFill(CRGB strip[], int skipDistance, int head, int color)
     }
 }
 
-// Distance measurement
+/**
+ * Distance measurement. C statement address the pin directly which eliminate the need
+ * for digitalWrite();
+ */
 void measureDist(int &distance)
 {
-    digitalWrite(TRIGGER_PIN, 0x0);
+    // C statement to address Trigger Pin directly. Sets to low
+    
+# 202 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+   (*(volatile uint8_t *)((0x0E) + 0x20)) 
+# 202 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+         |= 
+# 202 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+            (1 << (5))
+# 202 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+                    ;
     delayMicroseconds(2);
-    digitalWrite(TRIGGER_PIN, 0x1);
+    // C Statement to address Trigger Pin directly. Sets to high
+    
+# 205 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+   (*(volatile uint8_t *)((0x0E) + 0x20)) 
+# 205 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+         &= ~
+# 205 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+             (1 << (5))
+# 205 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+                     ;
     delayMicroseconds(10);
-    digitalWrite(TRIGGER_PIN, 0x0);
+    // C Statement to address Trigger Pin directly. Sets to low
+    
+# 208 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+   (*(volatile uint8_t *)((0x0E) + 0x20)) 
+# 208 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+         |= 
+# 208 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+            (1 << (5))
+# 208 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+                    ;
 
     // Equation for distance calculation condensed into "return"
     // divided by 4 to eliminate "pulseDistance"
@@ -216,10 +244,14 @@ void measureDist(int &distance)
     distance = readerValue * 0.034 / 2;
 }
 
+/**
+ * Change the color in tandem with the distance measurement. Will only
+ * activate within a certain threshold
+ */
 int colorChange(int &color)
 {
     // Check if there's something within the area of the sensor
-    if (delayDistance < 140)
+    if (delayDistance < 80)
     {
         // Resetr the color variable to 0 when it hits 256 (loop)
         if (color > 255)

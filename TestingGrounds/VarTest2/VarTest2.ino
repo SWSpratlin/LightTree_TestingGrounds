@@ -2,9 +2,9 @@
 // this is imporant for the code to run
 
 #define NUM_LEDS 150
-// #define NUM_SECOND 150
+#define NUM_SECOND 300
 #define DATA_PIN 8
-// #define DATA_TWO 10
+#define DATA_TWO 10
 #define BRIGHTNESS 100
 #define COLOR_ORDER GRB
 // #define COLOR_ORDER_SECOND RGB
@@ -14,17 +14,14 @@
 #define MAX_MA 3000
 
 // Threshold for the distance in which the color change triggers
-#define THRESHOLD 140
+#define THRESHOLD 80
 
 // declare array
 CRGB leds[NUM_LEDS];
-// CRGB secondLeds[NUM_SECOND];
-
-// Trigger Pin for US Sensor
-const int TRIGGER_PIN = 2;
+CRGB secondLeds[NUM_SECOND];
 
 // Read/echo pin for US Sensor
-const int ECHO_PIN = 3;
+const int ECHO_PIN = 2;
 
 // diatance variable
 int delayDistance = 1;
@@ -35,10 +32,10 @@ int headRed = -30;
 int headGreen = -50;
 int headYellow = -100;
 
-// int secondHeadBlue = 0;
-// int secondHeadRed = -35;
-// int secondHeadGreen = -50;
-// int secondHeadOrange = -100;
+int secondHeadBlue = 0;
+int secondHeadRed = -35;
+int secondHeadGreen = -50;
+int secondHeadOrange = -100;
 
 // Color variables (need to be global for them to change consistently)
 int pulseColorRed = 250;
@@ -49,18 +46,15 @@ int pulseColorGreen = 100;
 void setup()
 {
     // WE DO NEED THESE
-    pinMode(TRIGGER_PIN, OUTPUT);
+    pinMode(3, OUTPUT);
     pinMode(ECHO_PIN, INPUT);
 
-    // Begin serial communication BAUD 9600
-    Serial.begin(9600);
-
     // Setup LED strip power
-    FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
+    // FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
 
     // add specific LEDs to array
     FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
-    // FastLED.addLeds<LED_TYPE_SECOND, DATA_TWO, COLOR_ORDER_SECOND>(secondLeds, NUM_SECOND);
+    FastLED.addLeds<LED_TYPE, DATA_TWO, COLOR_ORDER>(secondLeds, NUM_SECOND);
 
     // set LED brightness
     FastLED.setBrightness(BRIGHTNESS);
@@ -68,8 +62,8 @@ void setup()
     // show LEDs
     FastLED.show();
 
-    // starup delay 1 second
-    delay(1000);
+    // starup delay .5 second
+    delay(500);
 }
 
 void loop()
@@ -89,19 +83,21 @@ void loop()
     // call the first green pulse
     pulse(leds, NUM_LEDS, pulseColorGreen, headGreen, 30);
 
-    Serial.println(pulseColorRed);
-
     // call the second red pulse
-    // pulse(secondLeds, NUM_SECOND, CRGB::Red, secondHeadRed, 20);
+    pulse(secondLeds, NUM_SECOND, pulseColorRed, secondHeadRed, 20);
 
     // call the second blue pulse
-    // pulse(secondLeds, NUM_SECOND, CRGB::Blue, secondHeadBlue, 30);
+    pulse(secondLeds, NUM_SECOND, pulseColorBlue, secondHeadBlue, 30);
 
     // Call the second string Orange pulse
-    // pulse(secondLeds, NUM_SECOND, CRGB::Orange, secondHeadOrange, 0);
+    pulse(secondLeds, NUM_SECOND, pulseColorYellow, secondHeadOrange, 0);
 
     // call second string green pulse
-    // pulse(secondLeds, NUM_SECOND, CRGB::Green, secondHeadGreen, 10);
+    pulse(secondLeds, NUM_SECOND, pulseColorGreen, secondHeadGreen, 10);
+
+    // Update the changes. Putting this in the Pulse function makes things go much slower
+    // Updating the pixels THEN showing the changes is much faster.
+    FastLED.show();
 }
 
 /**
@@ -137,11 +133,9 @@ void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int gap)
         backFill(strip, skip, head, color);
     }
 
-    // Show updated LEDs
-    FastLED.show();
-
     // Fade for size
     tailFade(strip, ledNumber, 250);
+    delay(1);
 }
 
 /**
@@ -180,6 +174,10 @@ int headSkip(int &distance)
     }
 }
 
+/**
+ * Fill in behind the Head when it skips (speeds up) an LED
+ * Takes in the distance which is updated every loop
+ */
 void backFill(CRGB strip[], int skipDistance, int head, int color)
 {
 
@@ -194,14 +192,20 @@ void backFill(CRGB strip[], int skipDistance, int head, int color)
     }
 }
 
-// Distance measurement
+/**
+ * Distance measurement. C statement address the pin directly which eliminate the need
+ * for digitalWrite();
+ */
 void measureDist(int &distance)
 {
-    digitalWrite(TRIGGER_PIN, LOW);
+    // C statement to address Trigger Pin directly. Sets to low
+    PORTE |= _BV(PE5);
     delayMicroseconds(2);
-    digitalWrite(TRIGGER_PIN, HIGH);
+    // C Statement to address Trigger Pin directly. Sets to high
+    PORTE &= ~_BV(PE5);
     delayMicroseconds(10);
-    digitalWrite(TRIGGER_PIN, LOW);
+    // C Statement to address Trigger Pin directly. Sets to low
+    PORTE |= _BV(PE5);
 
     // Equation for distance calculation condensed into "return"
     // divided by 4 to eliminate "pulseDistance"
@@ -215,6 +219,10 @@ void measureDist(int &distance)
     distance = readerValue * 0.034 / 2;
 }
 
+/**
+ * Change the color in tandem with the distance measurement. Will only
+ * activate within a certain threshold
+ */
 int colorChange(int &color)
 {
     // Check if there's something within the area of the sensor
