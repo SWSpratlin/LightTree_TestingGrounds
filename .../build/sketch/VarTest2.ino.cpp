@@ -16,7 +16,7 @@
 #define MAX_MA 3000
 
 // Threshold for the distance in which the color change triggers
-#define THRESHOLD 80
+#define THRESHOLD 50
 
 // declare array
 CRGB leds[NUM_LEDS];
@@ -47,19 +47,19 @@ int pulseColorGreen = 100;
 
 #line 46 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 void setup();
-#line 69 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 70 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 void loop();
-#line 108 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 110 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int gap);
-#line 146 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 148 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 void tailFade(CRGB strip[], int ledNumber, int pulseSize);
-#line 160 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 162 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 int headSkip(int &distance);
-#line 181 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 183 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 void backFill(CRGB strip[], int skipDistance, int head, int color);
-#line 199 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 201 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 void measureDist(int &distance);
-#line 226 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 228 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 int colorChange(int &color);
 #line 46 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
 void setup()
@@ -69,7 +69,7 @@ void setup()
     pinMode(ECHO_PIN, INPUT);
 
     // Setup LED strip power
-    // FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
+    FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
 
     // add specific LEDs to array
     FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
@@ -83,6 +83,7 @@ void setup()
 
     // starup delay .5 second
     delay(500);
+    Serial.begin(9600);
 }
 
 void loop()
@@ -117,6 +118,7 @@ void loop()
     // Update the changes. Putting this in the Pulse function makes things go much slower
     // Updating the pixels THEN showing the changes is much faster.
     FastLED.show();
+    Serial.println(delayDistance);
 }
 
 /**
@@ -179,11 +181,11 @@ void tailFade(CRGB strip[], int ledNumber, int pulseSize)
 int headSkip(int &distance)
 {
     // translate Sensor reading into headskip scale
-    if (50 <= distance)
+    if (40 <= distance)
     {
         return 1;
     }
-    else if (30 <= distance < 50)
+    else if (20 <= distance < 40)
     {
         return 2;
     }

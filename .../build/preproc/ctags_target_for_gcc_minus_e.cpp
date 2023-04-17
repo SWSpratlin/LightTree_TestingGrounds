@@ -51,7 +51,7 @@ void setup()
     pinMode(ECHO_PIN, 0x0);
 
     // Setup LED strip power
-    // FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
+    FastLED.setMaxPowerInVoltsAndMilliamps(5, 3000);
 
     // add specific LEDs to array
     FastLED.addLeds<WS2812B, 8, GRB>(leds, 150);
@@ -65,6 +65,7 @@ void setup()
 
     // starup delay .5 second
     delay(500);
+    Serial.begin(9600);
 }
 
 void loop()
@@ -99,6 +100,7 @@ void loop()
     // Update the changes. Putting this in the Pulse function makes things go much slower
     // Updating the pixels THEN showing the changes is much faster.
     FastLED.show();
+    Serial.println(delayDistance);
 }
 
 /**
@@ -161,11 +163,11 @@ void tailFade(CRGB strip[], int ledNumber, int pulseSize)
 int headSkip(int &distance)
 {
     // translate Sensor reading into headskip scale
-    if (50 <= distance)
+    if (40 <= distance)
     {
         return 1;
     }
-    else if (30 <= distance < 50)
+    else if (20 <= distance < 40)
     {
         return 2;
     }
@@ -201,35 +203,35 @@ void measureDist(int &distance)
 {
     // C statement to address Trigger Pin directly. Sets to low
     
-# 202 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 204 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
    (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 202 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 204 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
          |= 
-# 202 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 204 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
             (1 << (5))
-# 202 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 204 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
                     ;
     delayMicroseconds(2);
     // C Statement to address Trigger Pin directly. Sets to high
     
-# 205 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 207 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
    (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 205 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 207 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
          &= ~
-# 205 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 207 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
              (1 << (5))
-# 205 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 207 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
                      ;
     delayMicroseconds(10);
     // C Statement to address Trigger Pin directly. Sets to low
     
-# 208 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 210 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
    (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 208 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 210 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
          |= 
-# 208 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 210 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
             (1 << (5))
-# 208 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 210 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
                     ;
 
     // Equation for distance calculation condensed into "return"
@@ -251,7 +253,7 @@ void measureDist(int &distance)
 int colorChange(int &color)
 {
     // Check if there's something within the area of the sensor
-    if (delayDistance < 80)
+    if (delayDistance < 50)
     {
         // Resetr the color variable to 0 when it hits 256 (loop)
         if (color > 255)
