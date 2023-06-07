@@ -1,87 +1,105 @@
 #include <Arduino.h>
-#line 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 #include <FastLED.h>
-// this is imporant for the code to run
 
+// Defining Global Immutable Variables
 #define NUM_LEDS 150
-#define NUM_SECOND 300
-#define DATA_PIN 8
-#define DATA_TWO 10
-#define BRIGHTNESS 100
+#define DATA_ONE 8
+#define DATA_TWO 9
+#define DATA_THREE 10
+#define DATA_FOUR 11
+#define DATA_FIVE 12
+#define BRIGHTNESS 90
 #define COLOR_ORDER GRB
-// #define COLOR_ORDER_SECOND RGB
 #define LED_TYPE WS2812B
-// #define LED_TYPE_SECOND WS2811
 #define VOLTS 5
 #define MAX_MA 3000
 
-// Threshold for the distance in which the color change triggers
+// Threshold for Distance Sensor
 #define THRESHOLD 50
 
-// declare array
-CRGB leds[NUM_LEDS];
-CRGB secondLeds[NUM_SECOND];
-
-// Read/echo pin for US Sensor
+// Sensor Pin Designations
 const int ECHO_PIN = 2;
+const int TRIGGER_PIN = 3;
 
-// diatance variable
+// Declaring arrays
+CRGB leds[NUM_LEDS];
+CRGB secondLeds[NUM_LEDS];
+CRGB thirdLeds[NUM_LEDS];
+CRGB fourthLeds[NUM_LEDS];
+CRGB fifthLeds[NUM_LEDS];
+
+// Distance variable for spacing
 int delayDistance = 1;
 
-// Head variables
-int headBlue = -10;
+// Head Variables
+// These will be some of the main differences in this code
+int headBlue = 0;
 int headRed = -30;
 int headGreen = -50;
 int headYellow = -100;
+int headWhite = -70;
 
-int secondHeadBlue = 0;
-int secondHeadRed = -35;
-int secondHeadGreen = -50;
-int secondHeadOrange = -100;
+int secondHeadBlue = -10;
+int secondHeadRed = -40;
+int secondHeadGreen = -60;
+int secondHeadYellow = -80;
+int secondHeadWhite = -110;
+
+int thirdHeadBlue = -5;
+int thirdHeadRed = -25;
+int thirdHeadGreen = -35;
+int thirdHeadYellow = -55;
+int thirdHeadWhite - -75;
 
 // Color variables (need to be global for them to change consistently)
 int pulseColorRed = 250;
 int pulseColorBlue = 150;
 int pulseColorYellow = 30;
 int pulseColorGreen = 100;
+int pulseColorWhite = 0;
 
-#line 46 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 60 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void setup();
-#line 70 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 88 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void loop();
-#line 110 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 128 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int gap);
-#line 148 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 166 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void tailFade(CRGB strip[], int ledNumber, int pulseSize);
-#line 162 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 180 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 int headSkip(int &distance);
-#line 183 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 201 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void backFill(CRGB strip[], int skipDistance, int head, int color);
-#line 201 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 219 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void measureDist(int &distance);
-#line 228 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 246 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 int colorChange(int &color);
-#line 46 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+#line 60 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void setup()
 {
-    // WE DO NEED THESE
-    pinMode(3, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
+    // PinModes for US Sensor
+    pinMode(TRIGGER_PIN, OUTPUT);
+    pintMode(ECHO_PIN, INPUT);
 
-    // Setup LED strip power
-    FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
+    // Setup the LED strips
+    FastLED.setMaxPowerInMilliWatts(VOLTS, MAX_MA);
 
-    // add specific LEDs to array
-    FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
-    FastLED.addLeds<LED_TYPE, DATA_TWO, COLOR_ORDER>(secondLeds, NUM_SECOND);
+    // Set up pins for LED arrays.
+    // Important to note that I'll be setting
+    // up the pins rather than strips. I have 5 total
+    // possibilities
+    FastLED.addLeds<LED_TYPE, DATA_ONE, COLOR_ORDER>(leds, NUM_LEDS);
+    FastLED.addLeds<LED_TYPE, DATA_TWO, COLOR_ORDER>(secondLeds, NUM_LEDS);
+    FastLED.addLeds<LED_TYPE, DATA_THREE, COLOR_ORDER>(thirdLeds, NUM_LEDS);
 
-    // set LED brightness
+    // Set global brightness value
     FastLED.setBrightness(BRIGHTNESS);
 
-    // show LEDs
+    // Show the first Instances of the LEDs
     FastLED.show();
 
-    // starup delay .5 second
+    // startup Delay to give things some breathing room
     delay(500);
     Serial.begin(9600);
 }
@@ -104,16 +122,16 @@ void loop()
     pulse(leds, NUM_LEDS, pulseColorGreen, headGreen, 30);
 
     // call the second red pulse
-    pulse(secondLeds, NUM_SECOND, pulseColorRed, secondHeadRed, 20);
+    pulse(secondLeds, NUM_LEDS, pulseColorRed, secondHeadRed, 20);
 
     // call the second blue pulse
-    pulse(secondLeds, NUM_SECOND, pulseColorBlue, secondHeadBlue, 30);
+    pulse(secondLeds, NUM_LEDS, pulseColorBlue, secondHeadBlue, 30);
 
     // Call the second string Orange pulse
-    pulse(secondLeds, NUM_SECOND, pulseColorYellow, secondHeadOrange, 0);
+    pulse(secondLeds, NUM_LEDS, pulseColorYellow, secondHeadOrange, 0);
 
     // call second string green pulse
-    pulse(secondLeds, NUM_SECOND, pulseColorGreen, secondHeadGreen, 10);
+    pulse(secondLeds, NUM_LEDS, pulseColorGreen, secondHeadGreen, 10);
 
     // Update the changes. Putting this in the Pulse function makes things go much slower
     // Updating the pixels THEN showing the changes is much faster.

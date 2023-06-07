@@ -1,69 +1,76 @@
-# 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
-# 2 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 2
-// this is imporant for the code to run
+# 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
+# 2 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 2
+
+// Defining Global Immutable Variables
+# 16 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
+// Threshold for Distance Sensor
 
 
-
-
-
-
-
-// #define COLOR_ORDER_SECOND RGB
-
-// #define LED_TYPE_SECOND WS2811
-
-
-
-// Threshold for the distance in which the color change triggers
-
-
-// declare array
-CRGB leds[150];
-CRGB secondLeds[300];
-
-// Read/echo pin for US Sensor
+// Sensor Pin Designations
 const int ECHO_PIN = 2;
+const int TRIGGER_PIN = 3;
 
-// diatance variable
+// Declaring arrays
+CRGB leds[150];
+CRGB secondLeds[150];
+CRGB thirdLeds[150];
+CRGB fourthLeds[150];
+CRGB fifthLeds[150];
+
+// Distance variable for spacing
 int delayDistance = 1;
 
-// Head variables
-int headBlue = -10;
+// Head Variables
+// These will be some of the main differences in this code
+int headBlue = 0;
 int headRed = -30;
 int headGreen = -50;
 int headYellow = -100;
+int headWhite = -70;
 
-int secondHeadBlue = 0;
-int secondHeadRed = -35;
-int secondHeadGreen = -50;
-int secondHeadOrange = -100;
+int secondHeadBlue = -10;
+int secondHeadRed = -40;
+int secondHeadGreen = -60;
+int secondHeadYellow = -80;
+int secondHeadWhite = -110;
+
+int thirdHeadBlue = -5;
+int thirdHeadRed = -25;
+int thirdHeadGreen = -35;
+int thirdHeadYellow = -55;
+int thirdHeadWhite - -75;
 
 // Color variables (need to be global for them to change consistently)
 int pulseColorRed = 250;
 int pulseColorBlue = 150;
 int pulseColorYellow = 30;
 int pulseColorGreen = 100;
+int pulseColorWhite = 0;
 
 void setup()
 {
-    // WE DO NEED THESE
-    pinMode(3, 0x1);
-    pinMode(ECHO_PIN, 0x0);
+    // PinModes for US Sensor
+    pinMode(TRIGGER_PIN, 0x1);
+    pintMode(ECHO_PIN, 0x0);
 
-    // Setup LED strip power
-    FastLED.setMaxPowerInVoltsAndMilliamps(5, 3000);
+    // Setup the LED strips
+    FastLED.setMaxPowerInMilliWatts(5, 3000);
 
-    // add specific LEDs to array
+    // Set up pins for LED arrays.
+    // Important to note that I'll be setting
+    // up the pins rather than strips. I have 5 total
+    // possibilities
     FastLED.addLeds<WS2812B, 8, GRB>(leds, 150);
-    FastLED.addLeds<WS2812B, 10, GRB>(secondLeds, 300);
+    FastLED.addLeds<WS2812B, 9, GRB>(secondLeds, 150);
+    FastLED.addLeds<WS2812B, 10, GRB>(thirdLeds, 150);
 
-    // set LED brightness
-    FastLED.setBrightness(100);
+    // Set global brightness value
+    FastLED.setBrightness(90);
 
-    // show LEDs
+    // Show the first Instances of the LEDs
     FastLED.show();
 
-    // starup delay .5 second
+    // startup Delay to give things some breathing room
     delay(500);
     Serial.begin(9600);
 }
@@ -86,16 +93,16 @@ void loop()
     pulse(leds, 150, pulseColorGreen, headGreen, 30);
 
     // call the second red pulse
-    pulse(secondLeds, 300, pulseColorRed, secondHeadRed, 20);
+    pulse(secondLeds, 150, pulseColorRed, secondHeadRed, 20);
 
     // call the second blue pulse
-    pulse(secondLeds, 300, pulseColorBlue, secondHeadBlue, 30);
+    pulse(secondLeds, 150, pulseColorBlue, secondHeadBlue, 30);
 
     // Call the second string Orange pulse
-    pulse(secondLeds, 300, pulseColorYellow, secondHeadOrange, 0);
+    pulse(secondLeds, 150, pulseColorYellow, secondHeadOrange, 0);
 
     // call second string green pulse
-    pulse(secondLeds, 300, pulseColorGreen, secondHeadGreen, 10);
+    pulse(secondLeds, 150, pulseColorGreen, secondHeadGreen, 10);
 
     // Update the changes. Putting this in the Pulse function makes things go much slower
     // Updating the pixels THEN showing the changes is much faster.
@@ -203,35 +210,35 @@ void measureDist(int &distance)
 {
     // C statement to address Trigger Pin directly. Sets to low
     
-# 204 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 222 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
    (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 204 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 222 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
          |= 
-# 204 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 222 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
             (1 << (5))
-# 204 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 222 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
                     ;
     delayMicroseconds(2);
     // C Statement to address Trigger Pin directly. Sets to high
     
-# 207 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 225 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
    (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 207 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 225 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
          &= ~
-# 207 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 225 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
              (1 << (5))
-# 207 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 225 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
                      ;
     delayMicroseconds(10);
     // C Statement to address Trigger Pin directly. Sets to low
     
-# 210 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 228 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
    (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 210 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 228 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
          |= 
-# 210 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino" 3
+# 228 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
             (1 << (5))
-# 210 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/VarTest2/VarTest2.ino"
+# 228 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
                     ;
 
     // Equation for distance calculation condensed into "return"
