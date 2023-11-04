@@ -158,7 +158,7 @@ void loop()
  * NUmber of LEDs in the strip, the color of the pulse, the head variable you want,
  * and the gap between pulses
  */
-void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int int gap)
+void pulse(CRGB strip[], const int &ledNumber, int distSensor, int &color, int &head, int gap)
 {
 
     // Get the head skip
@@ -251,14 +251,14 @@ void backFill(CRGB strip[], int skipDistance, int head, int color)
  */
 void measureDist(int &distance)
 {
-    // C statement to address Trigger Pin directly. Sets to low
-    PORTE |= _BV(PE5);
+    //  address Trigger Pin directly. Sets to low
+    digitalWrite(TRIGGER_PIN, LOW);
     delayMicroseconds(2);
-    // C Statement to address Trigger Pin directly. Sets to high
-    PORTE &= ~_BV(PE5);
+    //  address Trigger Pin directly. Sets to high
+    digitalWrite(TRIGGER_PIN, HIGH);
     delayMicroseconds(10);
-    // C Statement to address Trigger Pin directly. Sets to low
-    PORTE |= _BV(PE5);
+    // address Trigger Pin directly. Sets to low
+    digitalWrite(TRIGGER_PIN, LOW);
 
     // Equation for distance calculation condensed into "return"
     // divided by 4 to eliminate "pulseDistance"
