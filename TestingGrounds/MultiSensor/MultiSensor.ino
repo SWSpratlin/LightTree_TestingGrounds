@@ -17,8 +17,20 @@
 #define THRESHOLD 50
 
 // Sensor Pin Designations
-const int ECHO_PIN = 2;
-const int TRIGGER_PIN = 3;
+const int ECHO_PIN = 20;
+const int TRIGGER_PIN = 21;
+
+const int ECHO_PIN02 = 22;
+const int TRIGGER_PIN02 = 23;
+
+const int ECHO_PIN03 = 24;
+const int TRIGGER_PIN03 = 25;
+
+const int ECHO_PIN04 = 26;
+const int TRIGGER_PIN04 = 27;
+
+const int ECHO_PIN05 = 28;
+const int TRIGGER_PIN05 = 29;
 
 // Declaring arrays
 CRGB leds[NUM_LEDS];
@@ -146,7 +158,7 @@ void loop()
  * NUmber of LEDs in the strip, the color of the pulse, the head variable you want,
  * and the gap between pulses
  */
-void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int gap)
+void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int int gap)
 {
 
     // Get the head skip
