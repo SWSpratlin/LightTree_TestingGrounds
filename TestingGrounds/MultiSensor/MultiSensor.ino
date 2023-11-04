@@ -1,21 +1,31 @@
-# 1 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-# 2 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 2
+#include <FastLED.h>
 
 // Defining Global Immutable Variables
-# 16 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-// Threshold for Distance Sensor
+#define NUM_LEDS 150
+#define DATA_ONE 8
+#define DATA_TWO 9
+#define DATA_THREE 10
+#define DATA_FOUR 11
+#define DATA_FIVE 12
+#define BRIGHTNESS 90
+#define COLOR_ORDER GRB
+#define LED_TYPE WS2812B
+#define VOLTS 5
+#define MAX_MA 3000
 
+// Threshold for Distance Sensor
+#define THRESHOLD 50
 
 // Sensor Pin Designations
 const int ECHO_PIN = 2;
 const int TRIGGER_PIN = 3;
 
 // Declaring arrays
-CRGB leds[150];
-CRGB secondLeds[150];
-CRGB thirdLeds[150];
-CRGB fourthLeds[150];
-CRGB fifthLeds[150];
+CRGB leds[NUM_LEDS];
+CRGB secondLeds[NUM_LEDS];
+CRGB thirdLeds[NUM_LEDS];
+CRGB fourthLeds[NUM_LEDS];
+CRGB fifthLeds[NUM_LEDS];
 
 // Distance variable for spacing
 int delayDistance = 1;
@@ -50,22 +60,22 @@ int pulseColorWhite = 0;
 void setup()
 {
     // PinModes for US Sensor
-    pinMode(TRIGGER_PIN, 0x1);
-    pinMode(ECHO_PIN, 0x0);
+    pinMode(TRIGGER_PIN, OUTPUT);
+    pinMode(ECHO_PIN, INPUT);
 
     // Setup the LED strips
-    FastLED.setMaxPowerInVoltsAndMilliamps(5, 3000);
+    FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
 
     // Set up pins for LED arrays.
     // Important to note that I'll be setting
     // up the pins rather than strips. I have 5 total
     // possibilities
-    FastLED.addLeds<WS2812B, 8, GRB>(leds, 150);
-    FastLED.addLeds<WS2812B, 9, GRB>(secondLeds, 150);
-    FastLED.addLeds<WS2812B, 10, GRB>(thirdLeds, 150);
+    FastLED.addLeds<LED_TYPE, DATA_ONE, COLOR_ORDER>(leds, NUM_LEDS);
+    FastLED.addLeds<LED_TYPE, DATA_TWO, COLOR_ORDER>(secondLeds, NUM_LEDS);
+    FastLED.addLeds<LED_TYPE, DATA_THREE, COLOR_ORDER>(thirdLeds, NUM_LEDS);
 
     // Set global brightness value
-    FastLED.setBrightness(90);
+    FastLED.setBrightness(BRIGHTNESS);
 
     // Show the first Instances of the LEDs
     FastLED.show();
@@ -81,49 +91,49 @@ void loop()
     measureDist(delayDistance);
 
     // call first red pulse
-    pulse(leds, 150, pulseColorRed, headRed, 0);
+    pulse(leds, NUM_LEDS, pulseColorRed, headRed, 0);
 
     // call the first blue pulse
-    pulse(leds, 150, pulseColorBlue, headBlue, 20);
+    pulse(leds, NUM_LEDS, pulseColorBlue, headBlue, 20);
 
     // call the first yellow pulse
-    pulse(leds, 150, pulseColorYellow, headYellow, 40);
+    pulse(leds, NUM_LEDS, pulseColorYellow, headYellow, 40);
 
     // call the first green pulse
-    pulse(leds, 150, pulseColorGreen, headGreen, 60);
+    pulse(leds, NUM_LEDS, pulseColorGreen, headGreen, 60);
 
     // call first white pulse
-    pulse(leds, 150, pulseColorWhite, headWhite, 100);
+    pulse(leds, NUM_LEDS, pulseColorWhite, headWhite, 100);
 
     // call the second red pulse
-    pulse(secondLeds, 150, pulseColorRed, secondHeadRed, 40);
+    pulse(secondLeds, NUM_LEDS, pulseColorRed, secondHeadRed, 40);
 
     // call the second blue pulse
-    pulse(secondLeds, 150, pulseColorBlue, secondHeadBlue, 60);
+    pulse(secondLeds, NUM_LEDS, pulseColorBlue, secondHeadBlue, 60);
 
     // Call the second string Orange pulse
-    pulse(secondLeds, 150, pulseColorYellow, secondHeadYellow, 0);
+    pulse(secondLeds, NUM_LEDS, pulseColorYellow, secondHeadYellow, 0);
 
     // call second string green pulse
-    pulse(secondLeds, 150, pulseColorGreen, secondHeadGreen, 20);
+    pulse(secondLeds, NUM_LEDS, pulseColorGreen, secondHeadGreen, 20);
 
     // call second white pulse
-    pulse(secondLeds, 150, pulseColorWhite, secondHeadWhite, 100);
+    pulse(secondLeds, NUM_LEDS, pulseColorWhite, secondHeadWhite, 100);
 
     // Call third blue pulse
-    pulse(thirdLeds, 150, pulseColorBlue, thirdHeadBlue, 0);
+    pulse(thirdLeds, NUM_LEDS, pulseColorBlue, thirdHeadBlue, 0);
 
     // Call the third Red Pulse
-    pulse(thirdLeds, 150, pulseColorRed, thirdHeadRed, 20);
+    pulse(thirdLeds, NUM_LEDS, pulseColorRed, thirdHeadRed, 20);
 
     // Call the third Green Pulse
-    pulse(thirdLeds, 150, pulseColorGreen, thirdHeadGreen, 40);
+    pulse(thirdLeds, NUM_LEDS, pulseColorGreen, thirdHeadGreen, 40);
 
     // Call the third Yellow Pulse
-    pulse(thirdLeds, 150, pulseColorYellow, thirdHeadYellow, 60);
+    pulse(thirdLeds, NUM_LEDS, pulseColorYellow, thirdHeadYellow, 60);
 
     // Call the third White Pulse
-    pulse(thirdLeds, 150, pulseColorWhite, thirdHeadWhite, 100);
+    pulse(thirdLeds, NUM_LEDS, pulseColorWhite, thirdHeadWhite, 100);
 
     // Update the changes. Putting this in the Pulse function makes things go much slower
     // Updating the pixels THEN showing the changes is much faster.
@@ -230,41 +240,17 @@ void backFill(CRGB strip[], int skipDistance, int head, int color)
 void measureDist(int &distance)
 {
     // C statement to address Trigger Pin directly. Sets to low
-    
-# 243 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
-   (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 243 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-         |= 
-# 243 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
-            (1 << (5))
-# 243 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-                    ;
+    PORTE |= _BV(PE5);
     delayMicroseconds(2);
     // C Statement to address Trigger Pin directly. Sets to high
-    
-# 246 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
-   (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 246 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-         &= ~
-# 246 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
-             (1 << (5))
-# 246 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-                     ;
+    PORTE &= ~_BV(PE5);
     delayMicroseconds(10);
     // C Statement to address Trigger Pin directly. Sets to low
-    
-# 249 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
-   (*(volatile uint8_t *)((0x0E) + 0x20)) 
-# 249 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-         |= 
-# 249 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino" 3
-            (1 << (5))
-# 249 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-                    ;
+    PORTE |= _BV(PE5);
 
     // Equation for distance calculation condensed into "return"
     // divided by 4 to eliminate "pulseDistance"
-    long readerValue = pulseIn(ECHO_PIN, 0x1);
+    long readerValue = pulseIn(ECHO_PIN, HIGH);
     // Serial.println(readerValue);
     if (readerValue < 9)
     {
@@ -281,7 +267,7 @@ void measureDist(int &distance)
 int colorChange(int &color)
 {
     // Check if there's something within the area of the sensor
-    if (delayDistance < 50)
+    if (delayDistance < THRESHOLD)
     {
         // Resetr the color variable to 0 when it hits 256 (loop)
         if (color > 255)

@@ -50,7 +50,7 @@ int thirdHeadBlue = -5;
 int thirdHeadRed = -25;
 int thirdHeadGreen = -35;
 int thirdHeadYellow = -55;
-int thirdHeadWhite - -75;
+int thirdHeadWhite = -75;
 
 // Color variables (need to be global for them to change consistently)
 int pulseColorRed = 250;
@@ -63,27 +63,27 @@ int pulseColorWhite = 0;
 void setup();
 #line 88 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void loop();
-#line 128 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
+#line 149 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void pulse(CRGB strip[], const int &ledNumber, int &color, int &head, int gap);
-#line 166 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
+#line 187 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void tailFade(CRGB strip[], int ledNumber, int pulseSize);
-#line 180 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
-int headSkip(int &distance);
 #line 201 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
+int headSkip(int &distance);
+#line 222 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void backFill(CRGB strip[], int skipDistance, int head, int color);
-#line 219 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
+#line 240 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void measureDist(int &distance);
-#line 246 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
+#line 267 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 int colorChange(int &color);
 #line 60 "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips/ManyStrips.ino"
 void setup()
 {
     // PinModes for US Sensor
     pinMode(TRIGGER_PIN, OUTPUT);
-    pintMode(ECHO_PIN, INPUT);
+    pinMode(ECHO_PIN, INPUT);
 
     // Setup the LED strips
-    FastLED.setMaxPowerInMilliWatts(VOLTS, MAX_MA);
+    FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
 
     // Set up pins for LED arrays.
     // Important to note that I'll be setting
@@ -113,25 +113,46 @@ void loop()
     pulse(leds, NUM_LEDS, pulseColorRed, headRed, 0);
 
     // call the first blue pulse
-    pulse(leds, NUM_LEDS, pulseColorBlue, headBlue, 10);
+    pulse(leds, NUM_LEDS, pulseColorBlue, headBlue, 20);
 
     // call the first yellow pulse
-    pulse(leds, NUM_LEDS, pulseColorYellow, headYellow, 20);
+    pulse(leds, NUM_LEDS, pulseColorYellow, headYellow, 40);
 
     // call the first green pulse
-    pulse(leds, NUM_LEDS, pulseColorGreen, headGreen, 30);
+    pulse(leds, NUM_LEDS, pulseColorGreen, headGreen, 60);
+
+    // call first white pulse
+    pulse(leds, NUM_LEDS, pulseColorWhite, headWhite, 100);
 
     // call the second red pulse
-    pulse(secondLeds, NUM_LEDS, pulseColorRed, secondHeadRed, 20);
+    pulse(secondLeds, NUM_LEDS, pulseColorRed, secondHeadRed, 40);
 
     // call the second blue pulse
-    pulse(secondLeds, NUM_LEDS, pulseColorBlue, secondHeadBlue, 30);
+    pulse(secondLeds, NUM_LEDS, pulseColorBlue, secondHeadBlue, 60);
 
     // Call the second string Orange pulse
-    pulse(secondLeds, NUM_LEDS, pulseColorYellow, secondHeadOrange, 0);
+    pulse(secondLeds, NUM_LEDS, pulseColorYellow, secondHeadYellow, 0);
 
     // call second string green pulse
-    pulse(secondLeds, NUM_LEDS, pulseColorGreen, secondHeadGreen, 10);
+    pulse(secondLeds, NUM_LEDS, pulseColorGreen, secondHeadGreen, 20);
+
+    // call second white pulse
+    pulse(secondLeds, NUM_LEDS, pulseColorWhite, secondHeadWhite, 100);
+
+    // Call third blue pulse
+    pulse(thirdLeds, NUM_LEDS, pulseColorBlue, thirdHeadBlue, 0);
+
+    // Call the third Red Pulse
+    pulse(thirdLeds, NUM_LEDS, pulseColorRed, thirdHeadRed, 20);
+
+    // Call the third Green Pulse
+    pulse(thirdLeds, NUM_LEDS, pulseColorGreen, thirdHeadGreen, 40);
+
+    // Call the third Yellow Pulse
+    pulse(thirdLeds, NUM_LEDS, pulseColorYellow, thirdHeadYellow, 60);
+
+    // Call the third White Pulse
+    pulse(thirdLeds, NUM_LEDS, pulseColorWhite, thirdHeadWhite, 100);
 
     // Update the changes. Putting this in the Pulse function makes things go much slower
     // Updating the pixels THEN showing the changes is much faster.
