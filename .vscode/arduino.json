@@ -1,6 +1,8 @@
 {
-    "port": "/dev/tty.usbmodem14101",
-    "board": "arduino:avr:mega",
-    "sketch": "TestingGrounds/ManyStrips/ManyStrips.ino",
-    "output": ".../build"
+    "port": "/dev/tty.usbserial-8310",
+    "board": "esp32:esp32:esp32",
+    "sketch": "TestingGrounds/espLightTree/espLightTree.ino",
+    "output": ".../build",
+    "configuration": "JTAGAdapter=default,PSRAM=disabled,PartitionScheme=default,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=115200,LoopCore=0,EventsCore=1,DebugLevel=info,EraseFlash=all",
+    "programmer": "esptool"
 }

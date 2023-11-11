@@ -1,3 +1,4 @@
+#include <arduino.h>
 #include <FastLED.h>
 
 // Defining Global Immutable Variables

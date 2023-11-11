@@ -1,11 +1,11 @@
 {
   "additionalFiles": "",
   "builtInToolsFolders": "",
-  "compiler.optimization_flags": "",
+  "compiler.optimization_flags": "-Os",
   "customBuildProperties": "",
-  "fqbn": "arduino:avr:mega:cpu=atmega2560",
+  "fqbn": "esp32:esp32:esp32:JTAGAdapter=default,PSRAM=disabled,PartitionScheme=default,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=115200,LoopCore=0,EventsCore=1,DebugLevel=info,EraseFlash=all",
   "hardwareFolders": "/Users/spenserspratlin/Library/Arduino15/packages",
   "otherLibrariesFolders": "/Users/spenserspratlin/Documents/Arduino/libraries",
   "runtime.ide.version": "10607",
-  "sketchLocation": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/ManyStrips"
+  "sketchLocation": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/TestingGrounds/espLightTree"
 }
