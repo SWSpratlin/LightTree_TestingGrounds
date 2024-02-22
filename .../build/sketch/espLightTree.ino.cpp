@@ -15,11 +15,11 @@
 // Pins for US Echoes
 #define ECHO1 34
 #define ECHO2 35
-#define ECHO3 36
+#define ECHO3 33
 
 // Pins for the US Triggers
 #define TRIGGER1 26
-#define TRIGGER2 27
+#define TRIGGER2 14
 #define TRIGGER3 32
 
 // FastLED Vars

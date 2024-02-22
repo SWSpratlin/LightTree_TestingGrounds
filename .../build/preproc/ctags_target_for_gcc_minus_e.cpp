@@ -97,11 +97,11 @@ void setup()
 {
     // PinModes for US Sensors
     pinMode(26, 0x03);
-    pinMode(27, 0x03);
+    pinMode(14, 0x03);
     pinMode(32, 0x03);
     pinMode(34, 0x01);
     pinMode(35, 0x01);
-    pinMode(36, 0x01);
+    pinMode(33, 0x01);
 
     // Setup the LED strips
     FastLED.setMaxPowerInVoltsAndMilliamps(5, 3000);
@@ -133,9 +133,9 @@ void loop()
     // update pulse distance
     measureDist(26, 34, delayDistance1);
     delay(10);
-    measureDist(27, 35, delayDistance2);
+    measureDist(14, 35, delayDistance2);
     delay(10);
-    measureDist(32, 36, delayDistance3);
+    measureDist(32, 33, delayDistance3);
     delay(10);
 
     // call first Strand Pulses

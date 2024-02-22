@@ -5,21 +5,17 @@
 
 // Data pins for the LED Strips
 #define DATA_ONE 16
-#define DATA_TWO 17
-#define DATA_THREE 18
+#define DATA_TWO 14
+#define DATA_THREE 12
 #define DATA_FOUR 19
-#define DATA_FIVE 21
-#define DATA_SIX 22
+#define DATA_FIVE 32
+#define DATA_SIX 26
 
 // Pins for US Echoes
-#define ECHO1 34
-#define ECHO2 35
-#define ECHO3 36
+#define ECHO1 25
 
 // Pins for the US Triggers
-#define TRIGGER1 26
-#define TRIGGER2 27
-#define TRIGGER3 32
+#define TRIGGER1 13
 
 // FastLED Vars
 #define NUM_LEDS 150
@@ -41,9 +37,7 @@ CRGB fifthLeds[NUM_LEDS];
 CRGB sixthLeds[NUM_LEDS];
 
 // Distance variable for spacing
-int delayDistance1 = 1;
-int delayDistance2 = 1;
-int delayDistance3 = 1;
+int delayDistance = 1;
 
 /*
 Head Variables. Each pulse needs a head variable to iterate through the code with. The lower they go, the slower they will come out.
@@ -96,11 +90,7 @@ void setup()
 {
     // PinModes for US Sensors
     pinMode(TRIGGER1, OUTPUT);
-    pinMode(TRIGGER2, OUTPUT);
-    pinMode(TRIGGER3, OUTPUT);
     pinMode(ECHO1, INPUT);
-    pinMode(ECHO2, INPUT);
-    pinMode(ECHO3, INPUT);
 
     // Setup the LED strips
     FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
@@ -130,59 +120,55 @@ void setup()
 void loop()
 {
     // update pulse distance
-    measureDist(TRIGGER1, ECHO1, delayDistance1);
-    delay(10);
-    measureDist(TRIGGER2, ECHO2, delayDistance2);
-    delay(10);
-    measureDist(TRIGGER3, ECHO3, delayDistance3);
-    delay(10);
+    measureDist(TRIGGER1, ECHO1, delayDistance);
 
     // call first Strand Pulses
-    pulse(leds, NUM_LEDS, delayDistance1, pulseColorRed, headRed, 0);
-    pulse(leds, NUM_LEDS, delayDistance1, pulseColorBlue, headBlue, 20);
-    pulse(leds, NUM_LEDS, delayDistance1, pulseColorYellow, headYellow, 40);
-    pulse(leds, NUM_LEDS, delayDistance1, pulseColorGreen, headGreen, 60);
-    pulse(leds, NUM_LEDS, delayDistance1, pulseColorWhite, headWhite, 100);
+    pulse(leds, NUM_LEDS, delayDistance, pulseColorRed, headRed, 0);
+    pulse(leds, NUM_LEDS, delayDistance, pulseColorBlue, headBlue, 20);
+    pulse(leds, NUM_LEDS, delayDistance, pulseColorYellow, headYellow, 40);
+    pulse(leds, NUM_LEDS, delayDistance, pulseColorGreen, headGreen, 60);
+    pulse(leds, NUM_LEDS, delayDistance, pulseColorWhite, headWhite, 100);
 
     // call second strand pulses
-    pulse(secondLeds, NUM_LEDS, delayDistance1, pulseColorRed, secondHeadRed, 40);
-    pulse(secondLeds, NUM_LEDS, delayDistance1, pulseColorBlue, secondHeadBlue, 60);
-    pulse(secondLeds, NUM_LEDS, delayDistance1, pulseColorYellow, secondHeadYellow, 0);
-    pulse(secondLeds, NUM_LEDS, delayDistance1, pulseColorGreen, secondHeadGreen, 20);
-    pulse(secondLeds, NUM_LEDS, delayDistance1, pulseColorWhite, secondHeadWhite, 100);
+    pulse(secondLeds, NUM_LEDS, delayDistance, pulseColorRed, secondHeadRed, 40);
+    pulse(secondLeds, NUM_LEDS, delayDistance, pulseColorBlue, secondHeadBlue, 60);
+    pulse(secondLeds, NUM_LEDS, delayDistance, pulseColorYellow, secondHeadYellow, 0);
+    pulse(secondLeds, NUM_LEDS, delayDistance, pulseColorGreen, secondHeadGreen, 20);
+    pulse(secondLeds, NUM_LEDS, delayDistance, pulseColorWhite, secondHeadWhite, 100);
 
     // Call third strand pulses
-    pulse(thirdLeds, NUM_LEDS, delayDistance2, pulseColorBlue, thirdHeadBlue, 0);
-    pulse(thirdLeds, NUM_LEDS, delayDistance2, pulseColorRed, thirdHeadRed, 20);
-    pulse(thirdLeds, NUM_LEDS, delayDistance2, pulseColorGreen, thirdHeadGreen, 40);
-    pulse(thirdLeds, NUM_LEDS, delayDistance2, pulseColorYellow, thirdHeadYellow, 60);
-    pulse(thirdLeds, NUM_LEDS, delayDistance2, pulseColorWhite, thirdHeadWhite, 100);
+    pulse(thirdLeds, NUM_LEDS, delayDistance, pulseColorBlue, thirdHeadBlue, 0);
+    pulse(thirdLeds, NUM_LEDS, delayDistance, pulseColorRed, thirdHeadRed, 20);
+    pulse(thirdLeds, NUM_LEDS, delayDistance, pulseColorGreen, thirdHeadGreen, 40);
+    pulse(thirdLeds, NUM_LEDS, delayDistance, pulseColorYellow, thirdHeadYellow, 60);
+    pulse(thirdLeds, NUM_LEDS, delayDistance, pulseColorWhite, thirdHeadWhite, 100);
 
     // call fourth Strand Pulses
-    pulse(leds, NUM_LEDS, delayDistance2, pulseColorRed, fourthHeadRed, 0);
-    pulse(leds, NUM_LEDS, delayDistance2, pulseColorBlue, fourthHeadBlue, 20);
-    pulse(leds, NUM_LEDS, delayDistance2, pulseColorYellow, fourthHeadYellow, 40);
-    pulse(leds, NUM_LEDS, delayDistance2, pulseColorGreen, fourthHeadGreen, 60);
-    pulse(leds, NUM_LEDS, delayDistance2, pulseColorWhite, fourthHeadWhite, 100);
+    pulse(fourthLeds, NUM_LEDS, delayDistance, pulseColorRed, fourthHeadRed, 0);
+    pulse(fourthLeds, NUM_LEDS, delayDistance, pulseColorBlue, fourthHeadBlue, 20);
+    pulse(fourthLeds, NUM_LEDS, delayDistance, pulseColorYellow, fourthHeadYellow, 40);
+    pulse(fourthLeds, NUM_LEDS, delayDistance, pulseColorGreen, fourthHeadGreen, 60);
+    pulse(fourthLeds, NUM_LEDS, delayDistance, pulseColorWhite, fourthHeadWhite, 100);
 
     // call fifth Strand Pulses
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorRed, fifthheadRed, 0);
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorBlue, fifthheadBlue, 20);
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorYellow, fifthheadYellow, 40);
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorGreen, fifthheadGreen, 60);
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorWhite, fifthheadWhite, 100);
+    pulse(fifthLeds, NUM_LEDS, delayDistance, pulseColorRed, fifthheadRed, 0);
+    pulse(fifthLeds, NUM_LEDS, delayDistance, pulseColorBlue, fifthheadBlue, 20);
+    pulse(fifthLeds, NUM_LEDS, delayDistance, pulseColorYellow, fifthheadYellow, 40);
+    pulse(fifthLeds, NUM_LEDS, delayDistance, pulseColorGreen, fifthheadGreen, 60);
+    pulse(fifthLeds, NUM_LEDS, delayDistance, pulseColorWhite, fifthheadWhite, 100);
 
     // call sixth Strand Pulses
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorRed, sixthheadRed, 0);
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorBlue, sixthheadBlue, 20);
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorYellow, sixthheadYellow, 40);
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorGreen, sixthheadGreen, 60);
-    pulse(leds, NUM_LEDS, delayDistance3, pulseColorWhite, sixthheadWhite, 100);
+    pulse(sixthLeds, NUM_LEDS, delayDistance, pulseColorRed, sixthheadRed, 0);
+    pulse(sixthLeds, NUM_LEDS, delayDistance, pulseColorBlue, sixthheadBlue, 20);
+    pulse(sixthLeds, NUM_LEDS, delayDistance, pulseColorYellow, sixthheadYellow, 40);
+    pulse(sixthLeds, NUM_LEDS, delayDistance, pulseColorGreen, sixthheadGreen, 60);
+    pulse(sixthLeds, NUM_LEDS, delayDistance, pulseColorWhite, sixthheadWhite, 100);
 
     // Update the changes. Putting this in the Pulse function makes things go much slower
     // Updating the pixels THEN showing the changes is much faster.
     FastLED.show();
     delay(1);
+    Serial.println(delayDistance);
 }
 
 void pulse(CRGB strip[], const int &ledNumber, int &delayNumber, int &color, int &head, int gap)

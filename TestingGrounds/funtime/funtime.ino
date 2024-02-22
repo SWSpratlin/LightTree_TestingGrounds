@@ -1,7 +1,7 @@
 #include <FastLED.h>
 
 #define NUM_LEDS 150
-#define DATA_PIN 8
+#define DATA_PIN 14
 #define BRIGHTNESS 100
 #define COLOR_ORDER GRB
 #define LED_TYPE WS2812B
@@ -12,13 +12,13 @@
 CRGB leds[NUM_LEDS];
 
 // Trigger Pin for US Sensor
-const int TRIGGER_PIN = 2;
+// const int TRIGGER_PIN = 2;
 
 // Read/echo pin for US Sensor
-const int ECHO_PIN = 3;
+// const int ECHO_PIN = 3;
 
 // diatance variable
-int delayDistance = 1;
+// int delayDistance = 1;
 
 int headBlue = 0;
 int headRed = -30;
@@ -26,11 +26,11 @@ int headRed = -30;
 void setup()
 {
     // WE DO NEED THESE
-    pinMode(TRIGGER_PIN, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
+    // pinMode(TRIGGER_PIN, OUTPUT);
+    // pinMode(ECHO_PIN, INPUT);
 
     // Begin serial communication BAUD 9600
-    Serial.begin(9600);
+    Serial.begin(115200);
 
     // Setup LED strip power
     FastLED.setMaxPowerInVoltsAndMilliamps(VOLTS, MAX_MA);
@@ -51,7 +51,7 @@ void setup()
 void loop()
 {
     // update pulse distance
-    measureDist(delayDistance);
+    // measureDist(delayDistance);
 
     // call red pulse
     pulse(CRGB::Red, headRed, 0);
@@ -60,21 +60,22 @@ void loop()
     pulse(CRGB::Blue, headBlue, 35);
 
     // JAY IS GOING TO DO SOMETHING FUN HERE
+    FastLED.show();
 
     // print delayDistance to serial monitor
-    Serial.println(delayDistance);
+    Serial.print(headBlue);
+    Serial.print("  ");
+    Serial.println(headRed);
+    delay(1);
 }
 
 void pulse(CRGB color, int &head, int gap)
 {
 
-    // Get the head skip
-    int skip = headSkip(delayDistance);
-
     // Increment until it hits the end
     if (head <= NUM_LEDS)
     {
-        head += skip;
+        head++;
     }
 
     // reset if too high
@@ -88,9 +89,6 @@ void pulse(CRGB color, int &head, int gap)
     {
         // color the LEDs
         leds[head] = color;
-
-        // backfill for skipped LEDs
-        backFill(skip, head, color);
     }
 
     // Show updated LEDs
@@ -110,23 +108,6 @@ void tailFade(int pulseSize)
     }
 }
 
-int headSkip(int &distance)
-{
-    // translate Sensor reading into headskip scale
-    if (50 <= distance)
-    {
-        return 1;
-    }
-    else if (30 <= distance < 50)
-    {
-        return 2;
-    }
-    else
-    {
-        return 3;
-    }
-}
-
 void backFill(int skipDistance, int head, CRGB color)
 {
 
@@ -139,25 +120,4 @@ void backFill(int skipDistance, int head, CRGB color)
             leds[behind] = color;
         }
     }
-}
-
-// Distance measurement
-void measureDist(int &distance)
-{
-    digitalWrite(TRIGGER_PIN, LOW);
-    delayMicroseconds(2);
-    digitalWrite(TRIGGER_PIN, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(TRIGGER_PIN, LOW);
-
-    // Equation for distance calculation condensed into "return"
-    // divided by 4 to eliminate "pulseDistance"
-    long readerValue = pulseIn(ECHO_PIN, HIGH);
-    Serial.println(readerValue);
-    if (readerValue < 9)
-    {
-        readerValue = 9;
-    }
-
-    distance = readerValue * 0.034 / 2;
 }

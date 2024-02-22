@@ -3,7 +3,7 @@
   "builtInToolsFolders": "",
   "compiler.optimization_flags": "-Os",
   "customBuildProperties": "",
-  "fqbn": "esp32:esp32:esp32:JTAGAdapter=default,PSRAM=disabled,PartitionScheme=default,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=115200,LoopCore=0,EventsCore=1,DebugLevel=info,EraseFlash=all",
+  "fqbn": "esp32:esp32:esp32s2:JTAGAdapter=default,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,PSRAM=disabled,PartitionScheme=default,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none,EraseFlash=none",
   "hardwareFolders": "/Users/spenserspratlin/Library/Arduino15/packages",
   "otherLibrariesFolders": "/Users/spenserspratlin/Documents/Arduino/libraries",
   "runtime.ide.version": "10607",

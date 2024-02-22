@@ -7,7 +7,7 @@
   {
     "Sourcefile": null,
     "Include": "",
-    "Includepath": "/Users/spenserspratlin/Library/Arduino15/packages/esp32/hardware/esp32/2.0.11/variants/esp32"
+    "Includepath": "/Users/spenserspratlin/Library/Arduino15/packages/esp32/hardware/esp32/2.0.11/variants/esp32s2"
   },
   {
     "Sourcefile": "/Users/spenserspratlin/Documents/GitHub/LightTree_TestingGrounds/.../build/sketch/espLightTree.ino.cpp",
